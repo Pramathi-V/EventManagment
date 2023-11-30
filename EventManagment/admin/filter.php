@@ -162,7 +162,7 @@ if(isset($_POST['save'])){
                         echo "<p> VENUE ADDRESS: " ;echo $row_venue["address"]."</p>" ;
                         echo "<p> DATE: " ;echo $row["date"]."</p>" ;
                         echo "<p> AUDIENCE SIZE: " ;echo $row["audience_size"]."</p>" ;
-                        $vd = $row_eq["venue_booking_id"];
+                         $vd = $row_eq["venue_booking_id"];
                         $query = "SELECT calculate_total_cost($vd) AS total_cost";
                         $res_r = mysqli_query($data, $query);
                         if ($res_r) {
