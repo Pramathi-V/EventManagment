@@ -162,8 +162,18 @@ if(isset($_POST['save'])){
                         echo "<p> VENUE ADDRESS: " ;echo $row_venue["address"]."</p>" ;
                         echo "<p> DATE: " ;echo $row["date"]."</p>" ;
                         echo "<p> AUDIENCE SIZE: " ;echo $row["audience_size"]."</p>" ;
-                        $rate = ($row_eq["chairs_no"] + $row_eq["tables_no"] + $row_eq["lights_no"] + $row_eq["speakers_no"] + $row_eq["microphones_no"]) * 10 + $row_venue["rate"];
-                        echo "<p> RATE: " ;echo $rate."</p>" ;
+                        $vd = $row_eq["venue_booking_id"];
+                        $query = "SELECT calculate_total_cost($vd) AS total_cost";
+                        $res_r = mysqli_query($data, $query);
+                        if ($res_r) {
+                          $row = mysqli_fetch_assoc($res_r);
+                          $total_cost = $row['total_cost'];
+                          echo "<p> RATE: $total_cost </p>";
+                      } else {
+                          echo "Error executing query: " . mysqli_error($data);
+                      }
+                        // $rate = ($row_eq["chairs_no"] + $row_eq["tables_no"] + $row_eq["lights_no"] + $row_eq["speakers_no"] + $row_eq["microphones_no"]) * 10 + $row_venue["rate"];
+                        // echo "<p> RATE: " ;echo $rate."</p>" ;
                         echo"</td>";
                        echo "<td>";
                        echo "<p> CHAIRS: " ;echo $row_eq["chairs_no"]."</p>" ;
